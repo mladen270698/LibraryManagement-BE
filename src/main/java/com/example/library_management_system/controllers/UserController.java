@@ -21,12 +21,12 @@ public class UserController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @PostMapping("/insert")
+    @PostMapping("/Insert")
     public User insert(@RequestBody User user) {
         return userService.insert(user);
     }
 
-    @PostMapping("/search")
+    @PostMapping("/Search")
     public List<User> search() {
         return userService.search();
     }
@@ -63,10 +63,5 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable Integer id_user) {
         userService.delete(id_user);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        return ResponseEntity.ok("Test successful");
     }
 }

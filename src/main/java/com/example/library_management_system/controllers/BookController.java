@@ -20,12 +20,12 @@ public class BookController {
     @Autowired
     BookService bookService;
 
-    @PostMapping("/insert")
+    @PostMapping("/Insert")
     public Book insert(@RequestBody Book book) {
         return bookService.insert(book);
     }
 
-    @PostMapping("/search")
+    @PostMapping("/Search")
     public ResponseEntity<List<Book>> search(@RequestBody BookSearchPayload bookSearchPayload) {
         try {
             List<Book> books = bookService.search(bookSearchPayload);

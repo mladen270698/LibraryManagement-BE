@@ -14,17 +14,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf(
-                csrf -> csrf
+        httpSecurity.csrf(csrf -> csrf
                         .ignoringRequestMatchers("/User/**")
                         .ignoringRequestMatchers("/login")
-                        .ignoringRequestMatchers("/Book/**"))
+                        .ignoringRequestMatchers("/Book/**")
+                        .ignoringRequestMatchers("/BorrowedBook/**"))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/User/**").permitAll()
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers("/User/**").permitAll()
+                        .requestMatchers("/Book/**").permitAll()
+                        .requestMatchers("/BorrowedBook/**").permitAll()
                         .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .permitAll()
                 );
 
         return httpSecurity.build();
